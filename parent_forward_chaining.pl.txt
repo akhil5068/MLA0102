@@ -1,0 +1,21 @@
+% --- Facts: Gender and Children ---
+male(john).
+female(mary).
+male(alex).
+female(sophia).
+
+has_child(john, alex).
+has_child(mary, alex).
+has_child(john, sophia).
+has_child(mary, sophia).
+
+% --- Rules to derive new facts (forward chaining simulation) ---
+
+% If someone is male and has a child, he is a father
+father(X) :- male(X), has_child(X, _).
+
+% If someone is female and has a child, she is a mother
+mother(X) :- female(X), has_child(X, _).
+
+% A person is a parent if they have a child
+parent(X) :- has_child(X, _).

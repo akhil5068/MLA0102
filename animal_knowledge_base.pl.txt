@@ -1,0 +1,15 @@
+% --- Facts ---
+has_hair(dog).
+has_hair(cat).
+has_feathers(eagle).
+has_feathers(parrot).
+gives_birth(whale).
+lays_eggs(eagle).
+lays_eggs(parrot).
+
+% --- Rules ---
+mammal(X) :- has_hair(X).
+mammal(X) :- gives_birth(X).
+
+bird(X) :- has_feathers(X).
+bird(X) :- lays_eggs(X), \+ mammal(X).  % birds lay eggs but are not mammals

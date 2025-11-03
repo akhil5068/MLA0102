@@ -1,0 +1,23 @@
+% ----- Facts -----
+father(john, lisa).
+mother(mary, lisa).
+mother(mary, mike).
+sister(lisa, mike).
+father(tom, mary).
+father(mike, emma).
+mother(emma, olivia).
+grandfather(tom, olivia).
+
+% ----- Rules -----
+% A person X is a parent of Y if X is the mother or father of Y.
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+% A person X is a grandparent of Z if X is a parent of Y and Y is a parent of Z.
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+
+% A person X is a grandmother if X is a female parent of Y who is parent of Z.
+grandmother(X, Z) :- mother(X, Y), parent(Y, Z).
+
+% A person X is a grandfather if X is a male parent of Y who is parent of Z.
+grandfather(X, Z) :- father(X, Y), parent(Y, Z).

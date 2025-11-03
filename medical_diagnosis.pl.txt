@@ -1,0 +1,47 @@
+% --- Facts: Symptoms associated with conditions ---
+
+% Common cold
+has_symptom(cold, cough).
+has_symptom(cold, sneezing).
+has_symptom(cold, sore_throat).
+
+% Flu
+has_symptom(flu, fever).
+has_symptom(flu, body_ache).
+has_symptom(flu, cough).
+
+% COVID-19
+has_symptom(covid19, fever).
+has_symptom(covid19, cough).
+has_symptom(covid19, loss_of_taste).
+has_symptom(covid19, shortness_of_breath).
+
+% Allergy
+has_symptom(allergy, sneezing).
+has_symptom(allergy, itchy_eyes).
+has_symptom(allergy, runny_nose).
+
+% --- Rule: Diagnose condition based on symptoms ---
+diagnose(Disease) :-
+    has_symptom(Disease, Symptom1),
+    has_symptom(Disease, Symptom2),
+    has_symptom(Disease, Symptom3),
+    ask(Symptom1),
+    ask(Symptom2),
+    ask(Symptom3),
+    write('Based on your symptoms, you may have: '), write(Disease), nl.
+
+% --- Ask user interactively about each symptom ---
+ask(Symptom) :-
+    format('Do you have ~w? (yes/no): ', [Symptom]),
+    read(Response),
+    Response == yes.
+
+% --- Entry point to start diagnosis ---
+start :-
+    write('--- Simple Medical Diagnosis System ---'), nl,
+    write('Please answer the following questions with yes or no.'), nl,
+    (   diagnose(Disease)
+    ->  true
+    ;   write('Sorry, no specific condition could be diagnosed based on your responses.'), nl
+    ).

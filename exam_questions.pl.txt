@@ -1,0 +1,48 @@
+% --- Facts: Students, Teachers, Subjects, and Codes ---
+
+student(john).
+student(mary).
+student(alex).
+student(sophia).
+
+teacher(mr_smith).
+teacher(ms_jones).
+teacher(mr_brown).
+
+subject(math, 'M101').
+subject(english, 'E102').
+subject(science, 'S103').
+
+teaches(mr_smith, math).
+teaches(ms_jones, english).
+teaches(mr_brown, science).
+
+enrolled(john, math).
+enrolled(mary, english).
+enrolled(alex, science).
+enrolled(sophia, math).
+
+% --- Rules: Generate Fill-in-the-Blank Questions ---
+
+% Question about who teaches a subject
+generate_question :-
+    teaches(Teacher, Subject),
+    format('_____ teaches ~w.~n', [Subject]),
+    format('Answer: ~w~n~n', [Teacher]),
+    fail.
+
+% Question about student enrollment
+generate_question :-
+    enrolled(Student, Subject),
+    format('_____ is enrolled in ~w.~n', [Subject]),
+    format('Answer: ~w~n~n', [Student]),
+    fail.
+
+% Question about subject codes
+generate_question :-
+    subject(Subject, Code),
+    format('The code for _____ is ~w.~n', [Code]),
+    format('Answer: ~w~n~n', [Subject]),
+    fail.
+
+generate_question.

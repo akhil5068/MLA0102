@@ -1,0 +1,12 @@
+% Facts
+boy(jack).
+girl(mary).
+good(mary).
+
+% Rules
+child(X) :- boy(X).
+child(X) :- girl(X).
+
+gets(X, train) :- boy(X).
+gets(X, doll) :- girl(X).
+gets(X, coal) :- child(X), \+ good(X), \+ boy(X).

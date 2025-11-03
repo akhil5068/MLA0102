@@ -1,0 +1,11 @@
+% Facts
+bird(sparrow).
+bird(penguin).
+bird(eagle).
+
+can_fly(sparrow).
+can_fly(eagle).
+
+% Rule: A bird can fly if it is listed under can_fly
+flies(X) :- bird(X), can_fly(X).
+flies(X) :- bird(X), \+ can_fly(X), write(X), write(' cannot fly'), fail.

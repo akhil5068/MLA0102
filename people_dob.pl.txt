@@ -1,0 +1,34 @@
+% --- Facts: name and DOB (day, month, year) ---
+person(john, date(15, 5, 1990)).
+person(mary, date(20, 3, 1995)).
+person(alex, date(10, 8, 2000)).
+person(sophia, date(25, 12, 1985)).
+person(david, date(5, 7, 1998)).
+
+% --- Helper Rule: calculate age ---
+age(Name, Age) :-
+    person(Name, date(_, _, Year)),
+    get_time(Stamp),
+    stamp_date_time(Stamp, date(CurrentYear, _, _, _, _, _, _, _, _), 'UTC'),
+    Age is CurrentYear - Year.
+
+% --- a) Retrieve DOB of a specific person ---
+dob(Name, DOB) :-
+    person(Name, DOB).
+
+% --- b) Find all individuals older than a certain age ---
+older_than(AgeLimit, Name) :-
+    age(Name, Age),
+    Age > AgeLimit.
+
+% --- c) Determine the youngest person ---
+youngest(YoungestName) :-
+    findall(Year-Name, person(Name, date(_, _, Year)), Pairs),
+    sort(Pairs, Sorted),
+    last(Sorted, _-YoungestName).
+
+% --- d) Check if a specific person is older than another ---
+is_older(Person1, Person2) :-
+    person(Person1, date(_, _, Year1)),
+    person(Person2, date(_, _, Year2)),
+    Year1 < Year2.

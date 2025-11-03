@@ -1,0 +1,36 @@
+% ----- Facts -----
+% Define the arguments
+argument(a1).
+argument(a2).
+argument(a3).
+argument(a4).
+
+% Define attack relations: attacks(Attacker, Target)
+attacks(a1, a2).
+attacks(a2, a3).
+attacks(a3, a1).
+attacks(a4, a2).
+
+% ----- Rules -----
+
+% An argument is attacked if someone attacks it
+attacked(X) :-
+    attacks(_, X).
+
+% An argument defends itself if it attacks back any attacker
+defends(X) :-
+    attacks(X, Y),
+    attacks(Y, X).
+
+% An argument is accepted if:
+% 1. It exists, and
+% 2. It is not attacked, or it defends itself.
+accepted(X) :-
+    argument(X),
+    (\+ attacked(X) ; defends(X)).
+
+% An argument is rejected if it is attacked and cannot defend itself
+rejected(X) :-
+    argument(X),
+    attacked(X),
+    \+ defends(X).

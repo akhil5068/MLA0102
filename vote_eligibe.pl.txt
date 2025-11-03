@@ -1,0 +1,21 @@
+% ----- Facts -----
+age(john, 20).
+age(mary, 17).
+age(susan, 25).
+citizen(john).
+citizen(mary).
+citizen(susan).
+criminal_record(mary).
+
+% ----- Rules -----
+% A person is an adult if their age is 18 or older.
+adult(X) :-
+    age(X, A),
+    A >= 18.
+
+% A person is eligible to vote if they are an adult,
+% are a citizen, and do not have a criminal record.
+eligible_to_vote(X) :-
+    adult(X),
+    citizen(X),
+    \+ criminal_record(X).

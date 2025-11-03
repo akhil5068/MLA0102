@@ -1,0 +1,35 @@
+% --- Facts: Dietary recommendations for each disease ---
+
+% For diabetes
+recommended_food(diabetes, vegetables).
+recommended_food(diabetes, whole_grains).
+recommended_food(diabetes, lean_protein).
+avoid_food(diabetes, sugar).
+avoid_food(diabetes, white_bread).
+avoid_food(diabetes, sweets).
+
+% For hypertension
+recommended_food(hypertension, fruits).
+recommended_food(hypertension, vegetables).
+recommended_food(hypertension, low_salt_food).
+avoid_food(hypertension, salty_snacks).
+avoid_food(hypertension, red_meat).
+avoid_food(hypertension, processed_foods).
+
+% For obesity
+recommended_food(obesity, salads).
+recommended_food(obesity, fruits).
+recommended_food(obesity, high_fiber_foods).
+avoid_food(obesity, fried_foods).
+avoid_food(obesity, sugary_drinks).
+avoid_food(obesity, fast_food).
+
+% --- Rules ---
+
+% Suggest recommended items
+diet_recommendation(Disease, Recommendation) :-
+    recommended_food(Disease, Recommendation).
+
+% Suggest items to avoid
+diet_avoid(Disease, Food) :-
+    avoid_food(Disease, Food).

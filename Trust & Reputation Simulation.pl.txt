@@ -1,0 +1,27 @@
+% ----- Facts -----
+% trust(Agent1, Agent2, TrustValue).
+% TrustValue ranges from 0.0 (no trust) to 1.0 (full trust).
+
+trust(alice, bob, 0.8).
+trust(bob, carol, 0.7).
+trust(carol, dave, 0.9).
+trust(alice, eve, 0.6).
+
+% ----- Rules -----
+% Direct reputation: if Agent A directly trusts Agent B, reputation is the trust value.
+reputation(A, B, R) :-
+    trust(A, B, R).
+
+% Indirect reputation propagation:
+% If A trusts B and B trusts C, then A has indirect trust in C
+% The propagated reputation is calculated as product of trust values.
+reputation(A, C, R) :-
+    trust(A, B, R1),
+    reputation(B, C, R2),
+    A \= C,
+    R is R1 * R2.
+
+% Find the best reputation path between two agents.
+best_reputation(A, B, BestR) :-
+    setof(R, reputation(A, B, R), List),
+    max_list(List, BestR).

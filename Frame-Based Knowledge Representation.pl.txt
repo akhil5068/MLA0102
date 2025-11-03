@@ -1,0 +1,36 @@
+% ----- Frames and Slots -----
+% Syntax: frame(FrameName, [slot(Attribute, Value), ...]).
+
+frame(car, [
+    slot(type, vehicle),
+    slot(wheels, 4),
+    slot(fuel, petrol),
+    slot(speed, 180)
+]).
+
+frame(electric_car, [
+    isa(car),
+    slot(fuel, electricity),
+    slot(battery_life, '8 hours'),
+    slot(speed, 160)
+]).
+
+frame(hybrid_car, [
+    isa(car),
+    slot(fuel, hybrid),
+    slot(battery_life, '5 hours'),
+    slot(speed, 170)
+]).
+
+% ----- Rules for Attribute Retrieval with Inheritance -----
+
+% Get value of a slot directly from a frame
+get_value(Frame, Attribute, Value) :-
+    frame(Frame, Slots),
+    member(slot(Attribute, Value), Slots).
+
+% Inherit value from parent frame if not found directly
+get_value(Frame, Attribute, Value) :-
+    frame(Frame, Slots),
+    member(isa(Parent), Slots),
+    get_value(Parent, Attribute, Value).
